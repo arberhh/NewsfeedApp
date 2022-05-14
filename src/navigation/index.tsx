@@ -4,11 +4,11 @@ import {
   DefaultTheme,
   DarkTheme,
 } from '@react-navigation/native';
-import MainStack from './src/navigation/MainStack';
+import MainStack from './MainStack';
 
 export default () => {
   const scheme = useColorScheme();
-  console.log({ scheme });
+
   return (
     <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
       {/* content */}
