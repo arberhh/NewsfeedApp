@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/native';
 import MainStack from './MainStack';
 
+const Tab = createBottomTabNavigator();
 export default () => {
   const scheme = useColorScheme();
 
