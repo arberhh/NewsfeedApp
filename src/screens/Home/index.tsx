@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, RefreshControl, SafeAreaView, Text, TextInput } from 'react-native';
 import Item from '../../components/Item';
+import { AppContext } from '../../contexts';
 import getData from '../../services';
 import styles from './styles';
 
@@ -21,12 +22,14 @@ export default function Home({ navigation }) {
   const [page, setPage] = useState<number>(0);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const { language } = React.useContext(AppContext);
+
 
   useEffect(() => {
     const populateData = async () => {
       try {
         const date = new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
-        const response = await getData("us", date, page, searchQuery);
+        const response = await getData(language, date, page, searchQuery);
         console.log({ articles: response });
         if (data.length === 0) {
           setData(response.articles);
@@ -39,6 +42,19 @@ export default function Home({ navigation }) {
     }
     populateData()
   }, [navigation, searchQuery, page])
+
+  useEffect(() => {
+    const populateData = async () => {
+      try {
+        const date = new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
+        const response = await getData(language, date, 1, searchQuery);
+        setData(response.articles);
+      } catch (e) {
+        console.log({ e });
+      }
+    }
+    populateData()
+  }, [language])
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);

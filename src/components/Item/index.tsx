@@ -1,3 +1,4 @@
+import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import { Image, Text, useWindowDimensions, View } from 'react-native';
 import styles from './styles';
@@ -13,12 +14,13 @@ type ItemProps = {
 
 export default function Item({ author, date, title, imgPath, description, navigation }: ItemProps) {
   const { height } = useWindowDimensions()
+  const { colors } = useTheme();
   const onPress = () => {
     navigation.navigate('NewsDetail', { author, date, title, imgPath, description });
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.title} onPress={onPress}>{title}</Text>
+      <Text style={[styles.title, { color: colors.text }]} onPress={onPress}>{title}</Text>
       <Image style={{ ...styles.image, height: height / 5 }} source={{ uri: imgPath }} />
     </View>
   )

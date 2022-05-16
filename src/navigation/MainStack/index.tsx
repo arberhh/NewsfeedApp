@@ -7,7 +7,7 @@ const Stack = createNativeStackNavigator();
 function MainStack() {
   return (
     <Stack.Navigator screenOptions={{
-
+      headerShown: false,
     }}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="NewsDetail" component={NewsDetail} />
