@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
   },
-  picker: { height: 50, width: "100%", fontSize: 14, borderRadius: 4, borderWidth: 1 },
+  picker: { height: 50, width: "100%", fontSize: 14, borderRadius: 8, borderWidth: 1, marginTop: 20, paddingLeft: 15 },
 });
 
 export default styles;

@@ -4,12 +4,12 @@ import { Image, Text, useWindowDimensions, View } from 'react-native';
 import styles from './styles';
 
 type ItemProps = {
-  author: string;
-  date: string;
-  description: string
+  author: string,
+  date: string,
+  description: string,
   title: string,
   imgPath: string,
-  navigation: any;
+  navigation: any,
 }
 
 export default function Item({ author, date, title, imgPath, description, navigation }: ItemProps) {
@@ -19,9 +19,11 @@ export default function Item({ author, date, title, imgPath, description, naviga
     navigation.navigate('NewsDetail', { author, date, title, imgPath, description });
   }
   return (
+    imgPath &&
     <View style={styles.container}>
       <Text style={[styles.title, { color: colors.text }]} onPress={onPress}>{title}</Text>
-      <Image style={{ ...styles.image, height: height / 5 }} source={{ uri: imgPath }} />
+      <Image resizeMode='contain' style={{ ...styles.image, height: height / 5 }} source={{ uri: imgPath }} />
     </View>
+
   )
 }

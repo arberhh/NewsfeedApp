@@ -1,14 +1,14 @@
+import { useState } from 'react';
 import { useColorScheme } from 'react-native';
 import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
 } from '@react-navigation/native';
-import MainStack from './MainStack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Settings from '../screens/Settings';
 import { AppContext } from '../contexts';
-import { useState } from 'react';
+import MainStack from './MainStack';
+import Settings from '../screens/Settings';
 
 interface GlobalStateInterface {
   mode: string;
@@ -23,7 +23,7 @@ export default () => {
   return (
     <AppContext.Provider value={{ mode: globalState.mode, language: globalState.language, setGlobalState }}>
       <NavigationContainer theme={globalState.mode === 'dark' ? DarkTheme : DefaultTheme}>
-        <Tab.Navigator screenOptions={{ tabBarIconStyle: { display: "none" }, tabBarStyle: { paddingBottom: 10 } }}>
+        <Tab.Navigator screenOptions={{ tabBarIconStyle: { display: "none" }, tabBarStyle: { height: 80 }, tabBarLabelStyle: { fontSize: 17 } }}>
           <Tab.Screen name="Home" component={MainStack} />
           <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>

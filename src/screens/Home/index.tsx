@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, RefreshControl, SafeAreaView, Text, TextInput } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import Item from '../../components/Item';
 import { AppContext } from '../../contexts';
 import getData from '../../services';
 import styles from './styles';
 
 interface Item {
-  author: string;
-  title: string;
-  urlToImage: string;
-  content: string;
-  publishedAt: string;
+  author: string,
+  title: string,
+  urlToImage: string,
+  content: string,
+  publishedAt: string,
 }
 
-const wait = (timeout) => {
+const wait = (timeout: number) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
@@ -22,7 +23,8 @@ export default function Home({ navigation }) {
   const [page, setPage] = useState<number>(0);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const { language } = React.useContext(AppContext);
+  const { colors } = useTheme();
+  const { language } = useContext(AppContext);
 
 
   useEffect(() => {
@@ -64,7 +66,7 @@ export default function Home({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <TextInput
-        style={styles.searchInput}
+        style={{ ...styles.searchInput, borderColor: colors.text }}
         placeholder="Search/Filter"
         onChangeText={(text) => setSearchQuery(text)}
         placeholderTextColor="#999"
@@ -80,7 +82,6 @@ export default function Home({ navigation }) {
         onEndReachedThreshold={0.5}
         onEndReached={() => setPage(page + 1)}
         renderItem={({ item }) => {
-          console.log({ item })
           const { author = "", publishedAt = "", title = "", content = "", urlToImage = null } = item || {};
           return (
             <Item author={author} date={publishedAt} title={title} description={content} imgPath={urlToImage} navigation={navigation} />

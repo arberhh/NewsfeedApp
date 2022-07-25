@@ -1,9 +1,9 @@
-import React from "react";
+import React, { createContext } from "react";
 
 interface AppContextInterface {
-  mode: string;
-  language: string;
-  setGlobalState: any;
+  mode: string,
+  language: string,
+  setGlobalState: any,
 }
 
-export const AppContext = React.createContext<AppContextInterface>(null);
+export const AppContext = createContext<AppContextInterface>(null);

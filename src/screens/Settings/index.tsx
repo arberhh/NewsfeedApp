@@ -1,15 +1,15 @@
-import React from 'react'
-import { SafeAreaView, Switch, Text, useColorScheme, View, } from 'react-native'
-import { Picker } from '@react-native-picker/picker';
-import { AppContext } from '../../contexts';
+import React, { useContext } from 'react'
+import { SafeAreaView, Switch, Text, View, } from 'react-native'
 import { useTheme } from '@react-navigation/native';
+import RNPickerSelect from 'react-native-picker-select';
+import { AppContext } from '../../contexts';
+import { languages } from '../../constants/LanguageData';
 import styles from './styles';
 
 
 export default function Settings() {
-  const { language, mode, setGlobalState } = React.useContext(AppContext);
+  const { language, mode, setGlobalState } = useContext(AppContext);
   const { colors } = useTheme();
-  console.log({ mode });
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.row}>
@@ -20,17 +20,19 @@ export default function Settings() {
           value={mode === "dark"}
         />
       </View>
-      <Picker
-        selectedValue={language}
-        style={{ ...styles.picker, color: colors.text, borderColor: colors.text, }}
-        dropdownIconColor={colors.text}
+      <RNPickerSelect
+        value={language}
+        style={{
+          inputIOS: { ...styles.picker, color: colors.text, borderColor: colors.text, },
+          inputAndroid: { ...styles.picker, color: colors.text, borderColor: colors.text },
+        }}
+        placeholder={{}}
         onValueChange={(itemValue, itemIndex) =>
           setGlobalState({ language: itemValue, mode: mode })
-        }>
-        <Picker.Item label="English" value="en" />
-        <Picker.Item label="German" value="de" />
-        <Picker.Item label="French" value="fr" />
-      </Picker>
+        }
+        itemKey={language}
+        items={languages}
+      />
     </SafeAreaView >
   )
 }
